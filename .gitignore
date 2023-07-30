@@ -24,6 +24,8 @@ share/python-wheels/
 *.egg-info/
 .installed.cfg
 *.egg
+lib64/python3.8/site-packages/
+bin/
 MANIFEST
 
 # PyInstaller
