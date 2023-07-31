@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify
 import base64
+import os
 # import the prediction function
 from prediction_utils import predict_number
 
@@ -72,4 +73,7 @@ def predict():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    env = os.environ.get("ENV");
+    if(env == None):
+        env = "dev";
+    app.run(debug=True if env == "dev" else False, host='0.0.0.0', port=5000);

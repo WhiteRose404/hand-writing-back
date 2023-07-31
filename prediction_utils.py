@@ -2,7 +2,7 @@ import tensorflow as tf
 from tensorflow import keras
 from tensorflow.keras.models import load_model
 
-from pathlib import Path
+from storage_utils import fetch_model
 
 def getOutput(arr):
     max = 0
@@ -19,16 +19,24 @@ def getOutput(arr):
 
 
 def predict_number(table):
-    # load the model
-    # get the model from the minio server
-    # model = fetch_model();
+    
     # if(not model):
     #     return jsonify({'error': 'model not fetched'});
     
     # tmp 
-    cwd = Path.cwd().parent / 'mldev' / 'data' / 'model.keras';
+    # cwd = Path.cwd().parent / 'mldev' / 'data' / 'model.keras';
     ############################################################
+    # load the model
+    # get the model from the minio server
+    cwd = None;
+    try:
+        cwd = fetch_model();
+    except e:
+        return jsonify({'error': 'model not fetched'});
     
+    if(not cwd):
+        return jsonify({'error': 'model not fetched'});
+
     model = load_model(cwd);
     # reshape the table
     table = tf.cast(tf.reshape(table, (1, 28*28)), tf.float32);
