@@ -1,0 +1,24 @@
+name: image builder pipeline
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: testing the workflow
+        run: echo "testing the workflow"
+        
+      # - name: Build and push
+      #   uses: docker/build-push-action@v2
+      #   with:
+      #     push: true
+      #     tags: ${{ secrets.DOCKER_HUB_USERNAME }}/image-builder:latest
